@@ -2354,14 +2354,16 @@ class Spec:
         package_cls = spack.repo.PATH.get_pkg_class(new_spec.name)
         if change_spec.versions and not change_spec.versions == vn.any_version:
             new_spec.versions = change_spec.versions
-        for variant, value in change_spec.variants.items():
-            if variant in package_cls.variants:
-                if variant in new_spec.variants:
+
+        for vname, value in change_spec.variants.items():
+            if vname in package_cls.variant_names():
+                if vname in new_spec.variants:
                     new_spec.variants.substitute(value)
                 else:
-                    new_spec.variants[variant] = value
+                    new_spec.variants[vname] = value
             else:
-                raise ValueError("{0} is not a variant of {1}".format(variant, new_spec.name))
+                raise ValueError("{0} is not a variant of {1}".format(vname, new_spec.name))
+
         if change_spec.compiler:
             new_spec.compiler = change_spec.compiler
         if change_spec.compiler_flags:
@@ -3573,50 +3575,57 @@ class Spec:
             return
 
         pkg_cls = spec.package_class
-        pkg_variants = pkg_cls.variants
+        pkg_variants = pkg_cls.variant_names()
         # reserved names are variants that may be set on any package
         # but are not necessarily recorded by the package's class
         not_existing = set(spec.variants) - (
-            set(pkg_variants) | set(spack.directives.reserved_names)
+            set(pkg_variants) | set(spack.directives.reserved_variant_names)
         )
         if not_existing:
             raise vt.UnknownVariantError(spec, not_existing)
 
     def update_variant_validate(self, variant_name, values):
-        """If it is not already there, adds the variant named
-        `variant_name` to the spec `spec` based on the definition
-        contained in the package metadata. Validates the variant and
-        values before returning.
+        """If it is not already there, adds the variant named ``variant_name`` to
+        ``self`` based on the definition contained in the package metadata. Validates
+        the variant and values before returning.
 
-        Used to add values to a variant without being sensitive to the
-        variant being single or multi-valued. If the variant already
-        exists on the spec it is assumed to be multi-valued and the
-        values are appended.
+        Used to add values to a variant without being sensitive to the variant being
+        single or multi-valued. If the variant already exists on the spec it is assumed
+        to be multi-valued and the values are appended.
 
         Args:
            variant_name: the name of the variant to add or append to
-           values: the value or values (as a tuple) to add/append
-                   to the variant
+           values: the value or values (as a tuple) to add/append to the variant
+
         """
         if not isinstance(values, tuple):
             values = (values,)
 
-        pkg_variant, _ = self.package_class.variants[variant_name]
+        # assemble a list of possible ways the variant can behave
+        possible_variants = self.package_class.variants_for_spec(variant_name, self)
+        only_single_value = possible_variants and all(not pv.multi for pv in possible_variants)
 
+        # ensure that if we're appending a new value, that some possibility is multi-valued
+        variant = self.variants.get(variant_name)
         for value in values:
-            if self.variants.get(variant_name):
-                msg = (
-                    f"cannot append the new value '{value}' to the single-valued "
-                    f"variant '{self.variants[variant_name]}'"
-                )
-                assert pkg_variant.multi, msg
-                self.variants[variant_name].append(value)
+            if not variant:
+                pkg_variant = possible_variants[0]  # TODO: pick the right one if multiple
+                variant = self.variants[variant_name] = pkg_variant.make_variant(value)
             else:
-                variant = pkg_variant.make_variant(value)
-                self.variants[variant_name] = variant
+                err = f"cannot append a new value '{value}' to the single-valued variant {variant}"
+                assert not only_single_value, err
+                variant.append(value)
 
-        pkg_cls = spack.repo.PATH.get_pkg_class(self.name)
-        pkg_variant.validate_or_raise(self.variants[variant_name], pkg_cls)
+        # ensure that the values are ok according to some legal variant descriptor
+        errors = []
+        for pkg_variant in possible_variants:
+            try:
+                pkg_variant.validate_or_raise(variant, self.package_class)
+            except spack.error.SpecError as e:
+                errors.append(e)
+        assert not errors, f"Couldn't validate {variant_name}:\n" + "\n".join(
+            f"  {i}. {str(e)}" for i, e in enumerate(errors)
+        )
 
     def constrain(self, other, deps=True):
         """Intersect self with other in-place. Return True if self changed, False otherwise.

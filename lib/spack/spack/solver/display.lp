@@ -13,6 +13,7 @@
 #show attr/2.
 #show attr/3.
 #show attr/4.
+#show attr/5.
 
 % names of optimization criteria
 #show opt_criterion/2.
@@ -38,7 +39,7 @@
 #show condition_requirement/4.
 #show condition_requirement/5.
 #show condition_requirement/6.
-#show node_has_variant/2.
+#show node_has_variant/3.
 #show build/1.
 #show external/1.
 #show external_version/3.
@@ -50,3 +51,10 @@
 #show imposed_nodes/3.
 
 % debug
+#show variant_definition/3.
+#show variant_default_value/3.
+#show variant_possible_value/3.
+#show variant_single_value/2.
+#show variant_not_default/3.
+#show variant_default_value_from_package_py/3.
+#show node_has_variant/3.

@@ -81,7 +81,7 @@ __all__ = [
 ]
 
 #: These are variant names used by Spack internally; packages can't use them
-reserved_names = ["patches", "dev_path"]
+reserved_variant_names = ["patches", "dev_path"]
 
 #: Names of possible directives. This list is mostly populated using the @directive decorator.
 #: Some directives leverage others and in that case are not automatically added.
@@ -837,7 +837,7 @@ def variant(
         msg += " @*r{{[{0}, variant '{1}']}}"
         return llnl.util.tty.color.colorize(msg.format(pkg.name, name))
 
-    if name in reserved_names:
+    if name in reserved_variant_names:
 
         def _raise_reserved_name(pkg):
             msg = "The name '%s' is reserved by Spack" % name
@@ -896,22 +896,18 @@ def variant(
 
     def _execute_variant(pkg):
         when_spec = _make_when_spec(when)
-        when_specs = [when_spec]
 
         if not re.match(spack.spec.IDENTIFIER_RE, name):
             directive = "variant"
             msg = "Invalid variant name in {0}: '{1}'"
             raise DirectiveError(directive, msg.format(pkg.name, name))
 
-        if name in pkg.variants:
-            # We accumulate when specs, but replace the rest of the variant
-            # with the newer values
-            _, orig_when = pkg.variants[name]
-            when_specs += orig_when
-
-        pkg.variants[name] = (
-            spack.variant.Variant(name, default, description, values, multi, validator, sticky),
-            when_specs,
+        # variants are stored by condition then by name (so only the last variant of a
+        # given name takes precedence *per condition*).
+        # NOTE: variant defaults and values can conflict if when conditions overlap.
+        variants_by_name = pkg.variants.setdefault(when_spec, {})
+        variants_by_name[name] = spack.variant.Variant(
+            name, default, description, values, multi, validator, sticky
         )
 
     return _execute_variant
