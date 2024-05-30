@@ -968,28 +968,21 @@ def prevalidate_variant_value(
     if value == "*" or variant.name in spack.directives.reserved_variant_names:
         return []
 
-    try:
-        variants_by_name = pkg_cls.variants_by_name(when=True)
-        when_variants = variants_by_name[variant.name]
-    except KeyError:
-        raise RuntimeError(f"variant '{variant.name}' not found in package '{pkg_cls.name}'")
-
     # do as much prevalidation as we can -- check only those
     # variants whose when constraint intersects this spec
     errors = []
     possible_definitions = []
     valid_definitions = []
-    for when, pkg_variants in when_variants.items():
-        for pkg_variant_def in pkg_variants:
-            if spec and not spec.intersects(when):
-                continue
-            possible_definitions.append(pkg_variant_def)
+    for when, pkg_variant_def in pkg_cls.variant_definitions(variant.name):
+        if spec and not spec.intersects(when):
+            continue
+        possible_definitions.append(pkg_variant_def)
 
-            try:
-                pkg_variant_def.validate_or_raise(variant, pkg_cls)
-                valid_definitions.append(pkg_variant_def)
-            except spack.error.SpecError as e:
-                errors.append(e)
+        try:
+            pkg_variant_def.validate_or_raise(variant, pkg_cls)
+            valid_definitions.append(pkg_variant_def)
+        except spack.error.SpecError as e:
+            errors.append(e)
 
     # value is valid for some definition
     if valid_definitions:

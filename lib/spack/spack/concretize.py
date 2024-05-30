@@ -412,7 +412,7 @@ class Concretizer:
         changed = False
         preferred_variants = PackagePrefs.preferred_variants(spec.name)
         pkg_cls = spec.package_class
-        for name, when_variants in pkg_cls.variants_by_name(when=True).items():
+        for name in pkg_cls.variant_names():
             var = spec.variants.get(name, None)
             if var and "*" in var:
                 # remove variant wildcard before concretizing
@@ -421,19 +421,20 @@ class Concretizer:
                 # wildcard, and a wildcard does not constrain a variant
                 spec.variants.pop(name)
 
+            when_variants = pkg_cls.variant_definitions(name)
             if name not in spec.variants:
                 # reversed to take *last* definition from package definition
-                for when, variant_defs in reversed(list(when_variants.items())):
+                for when, variant_def in reversed(list(when_variants)):
                     if spec.satisfies(when):
                         if name in preferred_variants:
                             spec.variants[name] = preferred_variants.get(name)
                         else:
-                            spec.variants[name] = variant_defs[0].make_default()
+                            spec.variants[name] = variant_def.make_default()
 
                         changed = True
                         break
 
-            elif not any(spec.satisfies(when) for when in when_variants):
+            elif not any(spec.satisfies(when) for when, _ in when_variants):
                 raise vt.InvalidVariantForSpecError(name, when, spec)
 
         return changed
