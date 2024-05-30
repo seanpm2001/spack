@@ -712,22 +712,25 @@ def substitute_abstract_variants(spec):
     Args:
         spec: spec on which to operate the substitution
     """
-    # This method needs to be best effort so that it works in matrix exlusion
+    # This method needs to be best effort so that it works in matrix exclusion
     # in $spack/lib/spack/spack/spec_list.py
-    failed = []
+    unknown = []
     for name, v in spec.variants.items():
         if name in spack.directives.reserved_variant_names:
             if name == "dev_path":
                 new_variant = SingleValuedVariant(name, v._original_value)
                 spec.variants.substitute(new_variant)
             continue
-        if name not in spec.package_class.variant_names():
-            failed.append(name)
-            continue
 
         pkg_variants = spec.package_class.variants_for_spec(name, spec)
-        assert pkg_variants
-        if len(pkg_variants) > 1:
+        if not pkg_variants:
+            if name not in spec.package_class.variant_names():
+                unknown.append(name)
+            else:
+                whens = [str(when) for when, _ in spec.package_class.variant_definitions(name)]
+                raise InvalidVariantForSpecError(v.name, f"({', '.join(whens)})", spec)
+            continue
+        elif len(pkg_variants) > 1:
             continue
 
         pkg_variant = pkg_variants[0]
@@ -736,8 +739,8 @@ def substitute_abstract_variants(spec):
         spec.variants.substitute(new_variant)
 
     # Raise all errors at once
-    if failed:
-        raise UnknownVariantError(spec, failed)
+    if unknown:
+        raise UnknownVariantError(spec, unknown)
 
 
 # The class below inherit from Sequence to disguise as a tuple and comply
@@ -1072,9 +1075,9 @@ class InvalidVariantForSpecError(error.SpecError):
     """Raised when an invalid conditional variant is specified."""
 
     def __init__(self, variant, when, spec):
-        msg = "Invalid variant {0} for spec {1}.\n"
-        msg += "{0} is only available for {1.name} when satisfying one of {2}."
-        super().__init__(msg.format(variant, spec, when))
+        msg = f"Invalid variant {variant} for spec {spec}.\n"
+        msg += f"{variant} is only available for {spec.name} when satisfying one of {when}."
+        super().__init__(msg)
 
 
 class UnsatisfiableVariantSpecError(error.UnsatisfiableSpecError):
