@@ -1028,18 +1028,6 @@ ConditionIdFunctionPair = Tuple[int, List[AspFunction]]
 ConditionSpecCache = Dict[str, Dict[ConditionSpecKey, ConditionIdFunctionPair]]
 
 
-def _named_condition(spec: spack.spec.Spec, name: Optional[str] = None):
-    """Given a potentially anonymous ``Spec``, add a name to it if needed."""
-    if spec.name is not None:
-        return spec
-
-    named_cond = spec.copy()
-    named_cond.name = named_cond.name or name
-    if not named_cond.name:
-        raise ValueError(f"Must provide a name for anonymous condition: '{named_cond}'")
-    return named_cond
-
-
 class SpackSolverSetup:
     """Class to set up and run a Spack concretization solve."""
 
