@@ -3582,7 +3582,9 @@ class Spec:
             set(pkg_variants) | set(spack.directives.reserved_variant_names)
         )
         if not_existing:
-            raise vt.UnknownVariantError(spec, not_existing)
+            raise vt.UnknownVariantError(
+                f"No such variant {not_existing} for spec: '{spec}'", list(not_existing)
+            )
 
     def update_variant_validate(self, variant_name, values):
         """If it is not already there, adds the variant named ``variant_name`` to
