@@ -38,6 +38,7 @@ as input.
 import ast
 import collections
 import collections.abc
+import contextlib
 import glob
 import inspect
 import io
@@ -68,7 +69,19 @@ GROUPS = collections.defaultdict(list)
 # always strict) when we're ready to correct packages with invalid variant
 # specifications, e.g. @9:+foo when foo only exists for pkg@:8, or ~cuda~cudnn,
 # where cudnn doesn't exist when ~cuda.
-strict_variants = False
+_strict_variants = False
+
+
+@contextlib.contextmanager
+def strict_variants():
+    global _strict_variants
+
+    old = _strict_variants
+    try:
+        _strict_variants = True
+        yield
+    finally:
+        _strict_variants = old
 
 
 class Error:
@@ -323,7 +336,7 @@ def _avoid_mismatched_variants(error_cls):
                 # Variant cannot accept this value
                 try:
                     spack.variant.prevalidate_variant_value(
-                        pkg_cls, variant, variant.value, strict=strict_variants
+                        pkg_cls, variant, variant.value, strict=_strict_variants
                     )
                 except Exception:
                     summary = (
@@ -857,7 +870,7 @@ def _issues_in_depends_on_directive(pkgs, error_cls):
                             variant,
                             variant.value,
                             dep.spec,
-                            strict=strict_variants,
+                            strict=_strict_variants,
                         )
                     except Exception as e:
                         summary = (
@@ -996,7 +1009,7 @@ def _analyze_variants_in_directive(pkg, constraint, directive, error_cls):
 
         try:
             spack.variant.prevalidate_variant_value(
-                pkg, v, v.value, constraint, strict=strict_variants
+                pkg, v, v.value, constraint, strict=_strict_variants
             )
         except (
             spack.variant.InconsistentValidationError,
