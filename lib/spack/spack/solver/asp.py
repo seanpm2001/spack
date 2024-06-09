@@ -3419,6 +3419,10 @@ class SpecBuilder:
         if not variant:
             spec.variants[name] = spack.variant.make_variant(variant_type, name, value)
         else:
+            assert variant_type == "multi", (
+                f"Can't have multiple values for single-valued variant: "
+                f"{node}, {name}, {value}, {variant_type}, {variant_id}"
+            )
             variant.append(value)
 
     def version(self, node, version):
