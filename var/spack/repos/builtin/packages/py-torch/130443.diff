@@ -1,0 +1,58 @@
+diff --git a/aten/src/ATen/CMakeLists.txt b/aten/src/ATen/CMakeLists.txt
+index bf425af5fa..e11ae1d868 100644
+--- a/aten/src/ATen/CMakeLists.txt
++++ b/aten/src/ATen/CMakeLists.txt
+@@ -177,7 +177,13 @@ file(GLOB mem_eff_attention_cuda_cu "native/transformers/cuda/mem_eff_attention/
+ file(GLOB mem_eff_attention_cuda_kernels_cu "native/transformers/cuda/mem_eff_attention/kernels/*.cu")
+ file(GLOB mem_eff_attention_cuda_cpp "native/transformers/cuda/mem_eff_attention/*.cpp")
+ 
++# used to be able to restrict number of concurrent jobs
++add_library(flash_attention_cuda OBJECT)
++
+ if(USE_FLASH_ATTENTION)
++  # flash_attn requires excessive memory, so make it sequential
++  set_property(GLOBAL PROPERTY JOB_POOLS flash_attention_pool=3)
++  set_property(TARGET flash_attention_cuda PROPERTY JOB_POOL_COMPILE flash_attention_pool)
+   list(APPEND native_transformers_cuda_cu ${flash_attention_cuda_cu})
+   list(APPEND native_transformers_cuda_cu ${flash_attention_cuda_kernels_cu})
+   list(APPEND native_transformers_cuda_cpp ${flash_attention_cuda_cpp})
+@@ -196,6 +202,8 @@ if(USE_MEM_EFF_ATTENTION)
+   list(APPEND ATen_ATTENTION_KERNEL_SRCS ${mem_eff_attention_cuda_kernels_cu})
+ endif()
+ 
++target_sources(flash_attention_cuda PRIVATE ${native_transformers_cuda_cu})
++
+ # XNNPACK
+ file(GLOB native_xnnpack "native/xnnpack/*.cpp")
+ 
+@@ -260,7 +268,7 @@ if(USE_CUDA)
+     ${native_nested_cuda_cu}
+     ${native_sparse_cuda_cu}
+     ${native_quantized_cuda_cu}
+-    ${native_transformers_cuda_cu}
++    # native_transformers_cuda_cu is an object library
+     ${cuda_generated_sources}
+   )
+   list(APPEND ATen_CUDA_CPP_SRCS
+diff --git a/caffe2/CMakeLists.txt b/caffe2/CMakeLists.txt
+index a6b6f0f7d1..7d2f5daae3 100644
+--- a/caffe2/CMakeLists.txt
++++ b/caffe2/CMakeLists.txt
+@@ -1023,6 +1023,7 @@ elseif(USE_CUDA)
+   torch_compile_options(torch_cuda)  # see cmake/public/utils.cmake
+   target_compile_options_if_supported(torch_cuda "-Wno-deprecated-copy")  # see cmake/public/utils.cmake
+   target_compile_definitions(torch_cuda PRIVATE USE_CUDA)
++  target_link_libraries(torch_cuda PRIVATE flash_attention_cuda)
+ 
+   if(USE_CUSPARSELT)
+       target_link_libraries(torch_cuda PRIVATE torch::cusparselt)
+@@ -1624,6 +1625,9 @@ if(USE_CUDA)
+   target_link_libraries(
+       torch_cuda PRIVATE ${Caffe2_CUDA_DEPENDENCY_LIBS})
+ 
++  target_include_directories(
++      flash_attention_cuda PRIVATE ${Caffe2_GPU_INCLUDE})
++
+   # These public dependencies must go after the previous dependencies, as the
+   # order of the libraries in the linker call matters here when statically
+   # linking; libculibos and cublas must be last.

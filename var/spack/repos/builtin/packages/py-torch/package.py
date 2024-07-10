@@ -462,6 +462,9 @@ class PyTorch(PythonPackage, CudaPackage, ROCmPackage):
         working_dir="third_party/fbgemm",
     )
 
+    # Reduce parallelism during the build of flash_attn kernels (5GB+ per process)
+    patch("130443.diff", when="@2.3 +cuda")
+
     @when("@1.5.0:")
     def patch(self):
         # https://github.com/pytorch/pytorch/issues/52208
