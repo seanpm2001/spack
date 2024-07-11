@@ -462,8 +462,9 @@ class PyTorch(PythonPackage, CudaPackage, ROCmPackage):
         working_dir="third_party/fbgemm",
     )
 
-    # Reduce parallelism during the build of flash_attn kernels (5GB+ per process)
-    patch("130443.diff", when="@2.3 +cuda")
+    # Limit compilation parallelism in flash_attn cuda kernels
+    # https://github.com/pytorch/pytorch/pull/130443
+    patch("130443.patch", when="+cuda @2.3")
 
     @when("@1.5.0:")
     def patch(self):
@@ -512,6 +513,8 @@ class PyTorch(PythonPackage, CudaPackage, ROCmPackage):
 
         # Build in parallel to speed up build times
         env.set("MAX_JOBS", make_jobs)
+
+        env.set("USE_CCACHE", "OFF")
 
         # Spack logs have trouble handling colored output
         env.set("COLORIZE_OUTPUT", "OFF")

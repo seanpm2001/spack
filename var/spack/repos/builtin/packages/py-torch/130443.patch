@@ -1,39 +1,37 @@
+From 04fc29b4a7709366ab03d15d84d3cf4d7083c82f Mon Sep 17 00:00:00 2001
+From: Harmen Stoppels <me@harmenstoppels.nl>
+Date: Wed, 10 Jul 2024 18:05:00 +0200
+Subject: [PATCH] flash_attn: limit parallelism in build
+
+The flash attention cuda files require an enormous amount of memory and
+on most systems cause OOM errors when compiling with -j $(nproc).
+
+Compiling those files with a ninja pool fixes the problem.
+---
+ aten/src/ATen/CMakeLists.txt | 8 ++++++--
+ caffe2/CMakeLists.txt        | 4 ++++
+ 2 files changed, 10 insertions(+), 2 deletions(-)
+
 diff --git a/aten/src/ATen/CMakeLists.txt b/aten/src/ATen/CMakeLists.txt
-index bf425af5fa..e11ae1d868 100644
+index bf425af5fa..91799773e3 100644
 --- a/aten/src/ATen/CMakeLists.txt
 +++ b/aten/src/ATen/CMakeLists.txt
-@@ -177,7 +177,13 @@ file(GLOB mem_eff_attention_cuda_cu "native/transformers/cuda/mem_eff_attention/
+@@ -177,9 +177,13 @@ file(GLOB mem_eff_attention_cuda_cu "native/transformers/cuda/mem_eff_attention/
  file(GLOB mem_eff_attention_cuda_kernels_cu "native/transformers/cuda/mem_eff_attention/kernels/*.cu")
  file(GLOB mem_eff_attention_cuda_cpp "native/transformers/cuda/mem_eff_attention/*.cpp")
  
-+# used to be able to restrict number of concurrent jobs
++# flash_attn for cuda requires excessive memory, so restrict parallelism in ninja builds
 +add_library(flash_attention_cuda OBJECT)
++set_property(GLOBAL PROPERTY JOB_POOLS flash_attention_pool=3)
++set_property(TARGET flash_attention_cuda PROPERTY JOB_POOL_COMPILE flash_attention_pool)
 +
  if(USE_FLASH_ATTENTION)
-+  # flash_attn requires excessive memory, so make it sequential
-+  set_property(GLOBAL PROPERTY JOB_POOLS flash_attention_pool=3)
-+  set_property(TARGET flash_attention_cuda PROPERTY JOB_POOL_COMPILE flash_attention_pool)
-   list(APPEND native_transformers_cuda_cu ${flash_attention_cuda_cu})
-   list(APPEND native_transformers_cuda_cu ${flash_attention_cuda_kernels_cu})
+-  list(APPEND native_transformers_cuda_cu ${flash_attention_cuda_cu})
+-  list(APPEND native_transformers_cuda_cu ${flash_attention_cuda_kernels_cu})
++  target_sources(flash_attention_cuda PRIVATE ${flash_attention_cuda_cu} ${flash_attention_cuda_kernels_cu})
    list(APPEND native_transformers_cuda_cpp ${flash_attention_cuda_cpp})
-@@ -196,6 +202,8 @@ if(USE_MEM_EFF_ATTENTION)
-   list(APPEND ATen_ATTENTION_KERNEL_SRCS ${mem_eff_attention_cuda_kernels_cu})
- endif()
- 
-+target_sources(flash_attention_cuda PRIVATE ${native_transformers_cuda_cu})
-+
- # XNNPACK
- file(GLOB native_xnnpack "native/xnnpack/*.cpp")
- 
-@@ -260,7 +268,7 @@ if(USE_CUDA)
-     ${native_nested_cuda_cu}
-     ${native_sparse_cuda_cu}
-     ${native_quantized_cuda_cu}
--    ${native_transformers_cuda_cu}
-+    # native_transformers_cuda_cu is an object library
-     ${cuda_generated_sources}
-   )
-   list(APPEND ATen_CUDA_CPP_SRCS
+   list(APPEND FLASH_ATTENTION_CUDA_SOURCES ${flash_attention_cuda_cu} ${flash_attention_cuda_kernels_cu})
+   list(APPEND ATen_ATTENTION_KERNEL_SRCS ${flash_attention_cuda_kernels_cu})
 diff --git a/caffe2/CMakeLists.txt b/caffe2/CMakeLists.txt
 index a6b6f0f7d1..7d2f5daae3 100644
 --- a/caffe2/CMakeLists.txt
@@ -56,3 +54,6 @@ index a6b6f0f7d1..7d2f5daae3 100644
    # These public dependencies must go after the previous dependencies, as the
    # order of the libraries in the linker call matters here when statically
    # linking; libculibos and cublas must be last.
+-- 
+2.40.1
+
