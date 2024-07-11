@@ -367,11 +367,10 @@ class SpecParser:
 class SpecNodeParser:
     """Parse a single spec node from a stream of tokens"""
 
-    __slots__ = "ctx", "has_compiler", "has_version"
+    __slots__ = "ctx", "has_version"
 
     def __init__(self, ctx):
         self.ctx = ctx
-        self.has_compiler = False
         self.has_version = False
 
     def parse(
@@ -406,27 +405,9 @@ class SpecNodeParser:
             return FileParser(self.ctx).parse(initial_spec)
 
         while True:
-            if self.ctx.accept(TokenType.COMPILER):
-                if self.has_compiler:
-                    raise spack.spec.DuplicateCompilerSpecError(
-                        f"{initial_spec} cannot have multiple compilers"
-                    )
-
-                compiler_name = self.ctx.current_token.value[1:]
-                initial_spec.compiler = spack.spec.CompilerSpec(compiler_name.strip(), ":")
-                self.has_compiler = True
-
-            elif self.ctx.accept(TokenType.COMPILER_AND_VERSION):
-                if self.has_compiler:
-                    raise spack.spec.DuplicateCompilerSpecError(
-                        f"{initial_spec} cannot have multiple compilers"
-                    )
-
-                compiler_name, compiler_version = self.ctx.current_token.value[1:].split("@")
-                initial_spec.compiler = spack.spec.CompilerSpec(
-                    compiler_name.strip(), compiler_version
-                )
-                self.has_compiler = True
+            if self.ctx.accept(TokenType.COMPILER) or self.ctx.accept(TokenType.COMPILER_AND_VERSION):
+                build_dependency = self.ctx.current_token.value[1:]
+                initial_spec._add_dependency(spack.spec.Spec(build_dependency), depflag=spack.deptypes.BUILD, virtuals=())
 
             elif (
                 self.ctx.accept(TokenType.VERSION_HASH_PAIR)
