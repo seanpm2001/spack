@@ -585,7 +585,7 @@ class CompilerSpec:
     __slots__ = "name", "versions"
 
     def __init__(self, *args):
-        raise TypeError("CompilerSpec is being removed")
+        raise SystemExit("CompilerSpec is being removed")
         nargs = len(args)
         if nargs == 1:
             arg = args[0]
@@ -687,7 +687,7 @@ class CompilerSpec:
     @staticmethod
     def from_dict(d):
         d = d["compiler"]
-        return CompilerSpec(d["name"], vn.VersionList.from_dict(d))
+        return Spec(d["name"], vn.VersionList.from_dict(d))
 
     @property
     def display_str(self):

@@ -405,9 +405,13 @@ class SpecNodeParser:
             return FileParser(self.ctx).parse(initial_spec)
 
         while True:
-            if self.ctx.accept(TokenType.COMPILER) or self.ctx.accept(TokenType.COMPILER_AND_VERSION):
-                build_dependency = self.ctx.current_token.value[1:]
-                initial_spec._add_dependency(spack.spec.Spec(build_dependency), depflag=spack.deptypes.BUILD, virtuals=())
+            if self.ctx.accept(TokenType.COMPILER) or self.ctx.accept(
+                TokenType.COMPILER_AND_VERSION
+            ):
+                build_dependency = spack.spec.Spec(self.ctx.current_token.value[1:])
+                initial_spec._add_dependency(
+                    build_dependency, depflag=spack.deptypes.BUILD, virtuals=()
+                )
 
             elif (
                 self.ctx.accept(TokenType.VERSION_HASH_PAIR)
