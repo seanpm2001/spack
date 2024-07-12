@@ -56,6 +56,10 @@ class ArpackNg(CMakePackage, AutotoolsPackage):
         deprecated=True,
     )
 
+    depends_on("c", type="build")
+    depends_on("cxx", type="build")
+    depends_on("fortran", type="build")
+
     variant("shared", default=True, description="Enables the build of shared libraries")
     variant("mpi", default=True, description="Activates MPI support")
     variant("icb", default=False, when="@3.6:", description="Activates iso_c_binding support")

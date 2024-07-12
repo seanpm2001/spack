@@ -38,6 +38,8 @@ class Augustus(MakefilePackage):
         url="https://bioinf.uni-greifswald.de/augustus/binaries/old/augustus-3.2.3.tar.gz",
     )
 
+    depends_on("c", type="build")
+
     depends_on("perl", type=("build", "run"))
     depends_on("python", when="@3.3.1:", type=("build", "run"))
     depends_on("bamtools")

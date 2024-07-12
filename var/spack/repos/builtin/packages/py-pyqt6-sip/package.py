@@ -16,4 +16,7 @@ class PyPyqt6Sip(PythonPackage):
 
     version("13.5.1", sha256="d1e9141752966669576d04b37ba0b122abbc41cc9c35493751028d7d91c4dd49")
 
+    depends_on("c", type="build")
+    depends_on("cxx", type="build")
+
     depends_on("py-setuptools@30.3:", type="build")

@@ -18,6 +18,8 @@ class Tinyxml(CMakePackage):
 
     version("2.6.2", sha256="15bdfdcec58a7da30adc87ac2b078e4417dbe5392f3afb719f9ba6d062645593")
 
+    depends_on("cxx", type="build")
+
     variant("shared", default=True, description="Build a shared library")
 
     def url_for_version(self, version):

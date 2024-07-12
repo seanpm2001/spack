@@ -24,6 +24,8 @@ class Pulseaudio(AutotoolsPackage):
 
     version("13.0", sha256="961b23ca1acfd28f2bc87414c27bb40e12436efcf2158d29721b1e89f3f28057")
 
+    depends_on("c", type="build")
+
     variant("alsa", default=False, description="alsa support")
     variant("fftw", default=False, description="FFTW support")
     variant("gconf", default=False, description="Gconf support")

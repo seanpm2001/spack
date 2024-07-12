@@ -15,6 +15,8 @@ class Mcpp(AutotoolsPackage, SourceforgePackage):
 
     version("2.7.2", sha256="3b9b4421888519876c4fc68ade324a3bbd81ceeb7092ecdbbc2055099fcb8864")
 
+    depends_on("c", type="build")
+
     def configure_args(self):
         config_args = ["--enable-mcpplib", "--disable-static"]
         return config_args

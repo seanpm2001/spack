@@ -21,6 +21,8 @@ class PyMedaka(PythonPackage):
 
     version("1.7.2", sha256="7629546ed9193ffb6b1f881a6ce74b7d13d94972e032556098577ddb43bee763")
 
+    depends_on("c", type="build")
+
     # disable Makefile driven build of htslib and link to system htslib instead
     patch("htslib.patch", when="@1.7.2")
 

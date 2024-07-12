@@ -21,6 +21,10 @@ class Cepgen(CMakePackage):
         "1.0.2patch1", sha256="333bba0cb1965a98dec127e00c150eab1a515cd348a90f7b1d66d5cd8d206d21"
     )
 
+    depends_on("c", type="build")
+    depends_on("cxx", type="build")
+    depends_on("fortran", type="build")
+
     generator("ninja")
 
     depends_on("cmake@3.5:", type="build", when="@1.0:")

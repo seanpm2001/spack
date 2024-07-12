@@ -25,6 +25,8 @@ class Ip2(CMakePackage):
         deprecated=True,
     )
 
+    depends_on("fortran", type="build")
+
     depends_on("sp")
     requires("^sp precision=4,8,d", when="^sp@2.4:")
 

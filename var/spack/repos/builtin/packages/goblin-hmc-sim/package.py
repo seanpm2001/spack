@@ -28,5 +28,8 @@ class GoblinHmcSim(MakefilePackage):
 
     version("main", branch="main")
 
+    depends_on("c", type="build")
+    depends_on("cxx", type="build")
+
     def install(self, spec, prefix):
         install_tree(".", prefix)

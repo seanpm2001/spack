@@ -20,6 +20,9 @@ class SdslLite(Package):
         expand=False,
     )
 
+    depends_on("c", type="build")
+    depends_on("cxx", type="build")
+
     depends_on("cmake", type="build")
     depends_on("tar", type="build")
 

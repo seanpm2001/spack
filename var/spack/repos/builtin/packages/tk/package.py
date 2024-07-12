@@ -29,6 +29,8 @@ class Tk(AutotoolsPackage, SourceforgePackage):
     version("8.6.3", sha256="ba15d56ac27d8c0a7b1a983915a47e0f635199b9473cf6e10fbce1fc73fd8333")
     version("8.5.19", sha256="407af1de167477d598bd6166d84459a3bdccc2fb349360706154e646a9620ffa")
 
+    depends_on("c", type="build")
+
     variant("xft", default=True, description="Enable X FreeType")
     variant("xss", default=True, description="Enable X Screen Saver")
 

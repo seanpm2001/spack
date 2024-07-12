@@ -40,6 +40,9 @@ class GribApi(CMakePackage):
         deprecated=True,
     )
 
+    depends_on("c", type="build")
+    depends_on("fortran", type="build")
+
     variant(
         "netcdf", default=False, description="Enable netcdf encoding/decoding using netcdf library"
     )

@@ -24,6 +24,8 @@ class Lcals(MakefilePackage):
 
     version("1.0.2", sha256="a146590f7c1e9a9311ccf74dc0bef1fb19d77429db35a33c6725529fb1b0327e")
 
+    depends_on("cxx", type="build")
+
     variant(
         "microarch",
         description="Micro arch: SSE, AVX, MIC.",

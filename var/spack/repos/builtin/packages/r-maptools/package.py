@@ -58,6 +58,8 @@ class RMaptools(RPackage):
         deprecated=True,
     )
 
+    depends_on("c", type="build")
+
     depends_on("r@2.10:", type=("build", "run"))
     depends_on("r-sp@1.0-11:", type=("build", "run"))
     depends_on("r-foreign@0.8:", type=("build", "run"))

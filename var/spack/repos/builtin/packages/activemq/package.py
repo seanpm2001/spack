@@ -26,6 +26,8 @@ class Activemq(Package):
         deprecated=True,
     )
 
+    depends_on("cxx", type="build")
+
     depends_on("java")
 
     def install(self, spec, prefix):

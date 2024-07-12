@@ -15,6 +15,8 @@ class PyColossalai(PythonPackage):
 
     version("0.1.3", sha256="f25ffd313e62b2cb8f97c57f25fafb0e9f59ec7bd1d1bf6e8d8483f9b0082d33")
 
+    depends_on("cxx", type="build")
+
     depends_on("python@3.7:", type=("build", "run"))
     depends_on("py-setuptools", type="build")
     depends_on("py-torch@1.8:", type=("build", "run"))

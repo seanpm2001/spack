@@ -24,6 +24,8 @@ class Tulip(CMakePackage):
 
     version("5.4.0", sha256="2175e4e1a79028ab7a2479e882242f304fd3e01fedf80e1f29f8f5e9a6eb1325")
 
+    depends_on("cxx", type="build")
+
     extends("python")
     depends_on("py-pyqt5", type=("build", "run"))
 

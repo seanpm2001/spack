@@ -20,6 +20,8 @@ class FrHit(Package):
         sha256="44dcfeb73106529fcefb02c017ec7b95b04b6523a2a57683b2bc905c142e62eb",
     )
 
+    depends_on("cxx", type="build")
+
     depends_on("perl")
     depends_on("python@2.7:")
 

@@ -16,4 +16,7 @@ class ClustalOmega(AutotoolsPackage):
 
     version("1.2.4", sha256="8683d2286d663a46412c12a0c789e755e7fd77088fb3bc0342bb71667f05a3ee")
 
+    depends_on("c", type="build")
+    depends_on("cxx", type="build")
+
     depends_on("argtable")

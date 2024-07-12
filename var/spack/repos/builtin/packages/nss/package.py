@@ -28,6 +28,8 @@ class Nss(MakefilePackage):
         deprecated=True,
     )
 
+    depends_on("c", type="build")
+
     depends_on("nspr@4.24:")
     depends_on("sqlite")
     depends_on("zlib-api")

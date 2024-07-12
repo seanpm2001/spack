@@ -18,6 +18,8 @@ class Libuuid(AutotoolsPackage, SourceforgePackage):
         deprecated=True,
     )
 
+    depends_on("c", type="build")
+
     provides("uuid")
 
     conflicts("%gcc@14:")

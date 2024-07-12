@@ -24,6 +24,10 @@ class Papyrus(CMakePackage):
     version("1.0.1", sha256="3772fd6f2c301faf78f18c5e4dc3dbac57eb361861b091579609b3fff9e0bb17")
     version("1.0.0", sha256="5d57c0bcc80de48951e42460785783b882087a5714195599d773a6eabde5c4c4")
 
+    depends_on("c", type="build")
+    depends_on("cxx", type="build")
+    depends_on("fortran", type="build")
+
     depends_on("mpi")
 
     test_requires_compiler = True

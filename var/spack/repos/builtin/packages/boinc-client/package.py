@@ -21,6 +21,8 @@ class BoincClient(AutotoolsPackage):
 
     version("7.16.5", sha256="33db60991b253e717c6124cce4750ae7729eaab4e54ec718b9e37f87012d668a")
 
+    depends_on("cxx", type="build")
+
     variant("manager", default=False, description="Builds the client manager")
     variant("graphics", default=False, description="Graphic apps support")
 

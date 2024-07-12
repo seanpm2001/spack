@@ -93,6 +93,9 @@ class Glvis(MakefilePackage):
         extension="tar.gz",
     )
 
+    depends_on("c", type="build")
+    depends_on("cxx", type="build")
+
     variant(
         "screenshots",
         default="png",

@@ -22,3 +22,5 @@ class Shc(AutotoolsPackage):
     version("4.0.1", sha256="494666df8b28069a7d73b89f79919bdc04e929a176746c98c3544a639978ba52")
     version("4.0.0", sha256="750f84441c45bd589acc3b0f0f71363b0001818156be035da048e1c2f8d6d76b")
     version("3.9.8", sha256="8b31e1f2ceef3404217b9578fa250a8a424f3eaf03359dd7951cd635c889ad79")
+
+    depends_on("c", type="build")

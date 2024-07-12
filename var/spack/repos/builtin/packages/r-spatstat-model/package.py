@@ -34,6 +34,8 @@ class RSpatstatModel(RPackage):
 
     version("3.2-3", sha256="8ad7d2644773571a5c579ceebb98b735dccc97e9b4b109ea39b4ce3faedb14ea")
 
+    depends_on("c", type="build")
+
     depends_on("r@3.5.0:", type=("build", "run"))
     depends_on("r-spatstat-data@3.0:", type=("build", "run"))
     depends_on("r-spatstat-geom@3.0-5:", type=("build", "run"))

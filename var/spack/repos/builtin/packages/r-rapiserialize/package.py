@@ -24,3 +24,6 @@ class RRapiserialize(RPackage):
 
     version("0.1.2", sha256="9cc0bbb918eeadb394339c64b15324e8123fbb0061692f40102b111417a2600a")
     version("0.1.0", sha256="324d42c655c27b4647d194bfcd7c675da95c67ea3a74ce99853502022792a23e")
+
+    depends_on("c", type="build")
+    depends_on("cxx", type="build")

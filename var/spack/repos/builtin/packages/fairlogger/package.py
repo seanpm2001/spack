@@ -81,6 +81,8 @@ class Fairlogger(CMakePackage):
         deprecated=True,
     )
 
+    depends_on("cxx", type="build")
+
     generator("make", "ninja", default="ninja")
 
     variant(

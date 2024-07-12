@@ -37,6 +37,9 @@ class RRms(RPackage):
     version("5.1-2", sha256="f1cfeef466ac436105756679353a3468027d97a600e3be755b819aef30ed9207")
     version("5.1-1", sha256="c489948df5c434b40bcf5288844f5b4e08d157f36939d09230c1600f88d1bfe3")
 
+    depends_on("c", type="build")
+    depends_on("fortran", type="build")
+
     depends_on("r@3.5.0:", type=("build", "run"))
     depends_on("r-hmisc@4.3-0:", type=("build", "run"))
     depends_on("r-hmisc@4.7-0:", type=("build", "run"), when="@6.3-0:")

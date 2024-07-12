@@ -20,6 +20,8 @@ class Alpgen(CMakePackage, MakefilePackage):
 
     version("2.1.4", sha256="2f43f7f526793fe5f81a3a3e1adeffe21b653a7f5851efc599ed69ea13985c5e")
 
+    depends_on("fortran", type="build")
+
     build_system("makefile", "cmake", default="makefile")
 
     variant(

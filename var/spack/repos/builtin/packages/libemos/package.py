@@ -24,6 +24,8 @@ class Libemos(CMakePackage):
     version("4.4.7", sha256="669fb070c1ce655812882140a92b100233f065829868d9374bad2fcbb6b356e5")
     version("4.4.2", sha256="e2d20ad71e3beb398916f98a35a3c56ee0141d5bc9b3adff15095ff3b6dccea8")
 
+    depends_on("c", type="build")
+
     variant(
         "grib",
         default="eccodes",

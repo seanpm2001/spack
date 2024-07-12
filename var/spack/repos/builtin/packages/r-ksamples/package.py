@@ -26,4 +26,6 @@ class RKsamples(RPackage):
 
     version("1.2-9", sha256="ba3ec4af3dfcf7cf12f0b784ef67bfea565e16985647ead904629886cc1542ff")
 
+    depends_on("c", type="build")
+
     depends_on("r-suppdists", type=("build", "run"))

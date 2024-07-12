@@ -15,6 +15,8 @@ class LinsysV(MakefilePackage):
 
     version("alpha", sha256="6666bc837bb6598b7cdefb233d3d0f2c308a24fe3465e4fe9b6c9762810bb320")
 
+    depends_on("c", type="build")
+
     depends_on("mpi")
     depends_on("blas", type="link")
     depends_on("lapack", type="link")

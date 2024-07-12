@@ -19,6 +19,9 @@ class PyPythonLibsbml(PythonPackage):
         "5.19.5", tag="v5.19.5", commit="6081d9e1b0aa2b3ff4198b39680b726094c47e85", submodules=True
     )
 
+    depends_on("c", type="build")
+    depends_on("cxx", type="build")
+
     depends_on("py-setuptools", type="build")
 
     depends_on("swig", type="build")

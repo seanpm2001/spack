@@ -17,6 +17,10 @@ class Boxlib(CMakePackage):
 
     version("16.12.2", sha256="e87faeccfcb14b3436d36c45fcd9f46ea20f65298d35c6db2a80d6332b036dd2")
 
+    depends_on("c", type="build")
+    depends_on("cxx", type="build")
+    depends_on("fortran", type="build")
+
     depends_on("mpi")
 
     variant(

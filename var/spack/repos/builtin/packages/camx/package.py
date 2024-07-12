@@ -21,6 +21,8 @@ class Camx(MakefilePackage):
         url="http://www.camx.com/getmedia/caaf7983-616b-4207-bd10-c2b404bda78d/CAMx_v6-50-src-180430.tgz",
         sha256="4a53f78e0722d85a9c7d8ed6732aff55163a4ce06f69b6bbc9e00a3bf36a756c",
     )
+
+    depends_on("fortran", type="build")
     resource(
         when="@6.50",
         name="user_manual",

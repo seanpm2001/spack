@@ -23,6 +23,8 @@ class Mosh(AutotoolsPackage):
     version("1.3.0", sha256="320e12f461e55d71566597976bd9440ba6c5265fa68fbf614c6f1c8401f93376")
     version("1.2.6", sha256="7e82b7fbfcc698c70f5843bb960dadb8e7bd7ac1d4d2151c9d979372ea850e85")
 
+    depends_on("cxx", type="build")
+
     depends_on("protobuf")
     depends_on("ncurses")
     depends_on("zlib-api")

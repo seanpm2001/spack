@@ -17,6 +17,8 @@ class Multitail(MakefilePackage):
 
     version("6.4.2", sha256="af1d5458a78ad3b747c5eeb135b19bdca281ce414cefdc6ea0cff6d913caa1fd")
 
+    depends_on("c", type="build")
+
     depends_on("ncurses")
 
     # It's counterintuitive, but use DESTDIR for the install because

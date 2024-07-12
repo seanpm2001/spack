@@ -19,6 +19,8 @@ class Regcm(AutotoolsPackage):
         url="https://gforge.ictp.it/gf/download/frsrelease/259/1845/RegCM-4.7.0.tar.gz",
     )
 
+    depends_on("fortran", type="build")
+
     variant("debug", default=False, description="Build RegCM using debug options.")
     variant("profile", default=False, description="Build RegCM using profiling options.")
     variant(

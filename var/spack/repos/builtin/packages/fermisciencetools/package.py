@@ -21,5 +21,7 @@ class Fermisciencetools(Package):
     # can figure it out and we can use the source distribution instead.
     version("11r5p3", sha256="2f4fc32a0b2e5c0f1ddb220a0560f67e66052b7907c72dba181908dc9269ffe8")
 
+    depends_on("c", type="build")
+
     def install(self, spec, prefix):
         install_tree("x86_64-unknown-linux-gnu-libc2.17", prefix)

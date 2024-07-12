@@ -35,6 +35,8 @@ class Lbann(CachedCMakePackage, CudaPackage, ROCmPackage):
         deprecated=True,
     )
 
+    depends_on("cxx", type="build")
+
     variant(
         "build_type",
         default="Release",

@@ -17,6 +17,9 @@ class Hto4l(MakefilePackage):
 
     version("2.02", sha256="1a7061689ddaf6bde1f12032479c529a9787d7b038ed55a0325398bd531aadf6")
 
+    depends_on("c", type="build")
+    depends_on("fortran", type="build")
+
     depends_on("gsl")
 
     @when("@2.02")

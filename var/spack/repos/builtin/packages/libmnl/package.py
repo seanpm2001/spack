@@ -22,6 +22,8 @@ class Libmnl(AutotoolsPackage):
     version("1.0.2", sha256="2caec4716aceb245130f4e42f8c118b92618e37db8bb94e2799aff42b95c269f")
     version("1.0.1", sha256="60fe2a6ce59f6118b75b598dc11fc89b97e20ff8633fbea26fc568c45bbb672b")
 
+    depends_on("c", type="build")
+
     depends_on("autoconf", type="build")
     depends_on("automake", type="build")
     depends_on("libtool", type="build")

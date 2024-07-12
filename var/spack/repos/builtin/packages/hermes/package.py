@@ -25,6 +25,9 @@ class Hermes(CMakePackage):
         sha256="abf258a52fa79729dfeb28559957abf8945f3ad37cadefb3bc685227c5f057a8",
     )
 
+    depends_on("c", type="build")
+    depends_on("cxx", type="build")
+
     variant("vfd", default=False, description="Enable HDF5 VFD")
 
     depends_on("mochi-thallium~cereal@0.8:")

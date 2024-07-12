@@ -25,5 +25,7 @@ class Httping(AutotoolsPackage):
     version("2.3.1", sha256="90e86ca98f6c6bd33bd23a0eeda6f994dd8d147971d402da2733746c9b6ee61c")
     version("2.3", sha256="5d87e59e5d9e216346769471b581f289eac5e49cfc969407c199761367553ca8")
 
+    depends_on("c", type="build")
+
     def install(self, spec, prefix):
         make("install", "PREFIX={0}".format(prefix))

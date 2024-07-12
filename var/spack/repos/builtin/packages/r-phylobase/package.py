@@ -18,6 +18,9 @@ class RPhylobase(RPackage):
 
     version("0.8.10", sha256="5a44380ff49bab333a56f6f96157324ade8afb4af0730e013194c4badb0bf94b")
 
+    depends_on("c", type="build")
+    depends_on("cxx", type="build")
+
     depends_on("r-ade4", type=("build", "run"))
     depends_on("r-ape@3.0:", type=("build", "run"))
     depends_on("r-rcpp@0.11.0:", type=("build", "run"))

@@ -26,5 +26,7 @@ class Cmaq(Package):
         url="https://github.com/USEPA/CMAQ/archive/CMAQv5.3_27Aug2019.tar.gz",
     )
 
+    depends_on("fortran", type="build")
+
     def install(self, spec, prefix):
         install_tree(".", prefix)

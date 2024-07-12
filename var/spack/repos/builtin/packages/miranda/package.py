@@ -19,3 +19,5 @@ class Miranda(AutotoolsPackage):
         sha256="a671da562cf4636ef5085b27349df2df2f335774663fd423deb08f31212ec778",
         url="https://cbio.mskcc.org/microrna_data/miRanda-aug2010.tar.gz",
     )
+
+    depends_on("c", type="build")

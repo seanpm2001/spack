@@ -22,6 +22,8 @@ class RClock(RPackage):
 
     version("0.6.1", sha256="f80c385fd8229538968ffb71d7de53ddc82bfcec6641f8e76f299546c43c1702")
 
+    depends_on("cxx", type="build")
+
     depends_on("r@3.4:", type=("build", "run"))
     depends_on("r-rlang@1.0.4:", type=("build", "run"))
     depends_on("r-tzdb@0.3.0:", type=("build", "run"))

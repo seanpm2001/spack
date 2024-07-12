@@ -39,6 +39,8 @@ class RRcppblaze(RPackage):
 
     version("0.2.2", sha256="67550ed8aea12a219047af61b41e5b9f991608a21ce9a8fbf7ac55da0f7c2742")
 
+    depends_on("cxx", type="build")
+
     depends_on("r@3.0.2:", type=("build", "run"))
     depends_on("r-rcpp@0.11.0:", type=("build", "run"))
     depends_on("r-matrix@1.1-0:", type=("build", "run"))

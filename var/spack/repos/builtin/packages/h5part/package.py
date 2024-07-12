@@ -14,6 +14,10 @@ class H5part(AutotoolsPackage):
     url = "https://codeforge.lbl.gov/frs/download.php/latestfile/18/H5Part-1.6.6.tar.gz"
 
     version("1.6.6", sha256="10347e7535d1afbb08d51be5feb0ae008f73caf889df08e3f7dde717a99c7571")
+
+    depends_on("c", type="build")
+    depends_on("cxx", type="build")
+    depends_on("fortran", type="build")
     patch("mpiio.patch")
 
     depends_on("mpi")

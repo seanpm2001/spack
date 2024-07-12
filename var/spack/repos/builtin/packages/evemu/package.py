@@ -21,6 +21,9 @@ class Evemu(AutotoolsPackage):
     version("2.4.0", sha256="d346ec59289f588bd93fe3cfa40858c7e048660164338787da79b9ebe3256069")
     version("2.3.1", sha256="f2dd97310520bc7824adc38b69ead22c53944a666810c60a3e49592914e14e8a")
 
+    depends_on("c", type="build")
+    depends_on("cxx", type="build")
+
     depends_on("autoconf", type="build")
     depends_on("automake", type="build")
     depends_on("libtool", type="build")

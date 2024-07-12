@@ -15,6 +15,8 @@ class Spherepack(Package):
 
     version("3.2", sha256="d58ef8cbc45cf2ad24f73a9f73f5f9d4fbe03cd9e2e7722e526fffb68be581ba")
 
+    depends_on("fortran", type="build")
+
     def install(self, spec, prefix):
         if self.compiler.fc is None:
             raise InstallError("SPHEREPACK requires a Fortran 90 compiler")

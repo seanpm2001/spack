@@ -18,6 +18,8 @@ class PyPyqt6(SIPPackage):
     version("6.5.2", sha256="1487ee7350f9ffb66d60ab4176519252c2b371762cbe8f8340fd951f63801280")
     version("6.5.1", sha256="e166a0568c27bcc8db00271a5043936226690b6a4a74ce0a5caeb408040a97c3")
 
+    depends_on("cxx", type="build")
+
     # pyproject.toml
     depends_on("py-sip@6.5:6", type="build")
     depends_on("py-pyqt-builder@1.15:1", type="build")

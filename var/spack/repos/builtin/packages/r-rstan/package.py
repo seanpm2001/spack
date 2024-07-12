@@ -33,6 +33,8 @@ class RRstan(RPackage):
     version("2.17.2", sha256="a7b197e6e42f8f0c302da9205afc19a0261eaf6af1425854303d2ce6cbd36729")
     version("2.10.1", sha256="4d2040742607f8675633c6b8c0a2e810f2fe3077f9242b1edfd42642613a8294")
 
+    depends_on("cxx", type="build")
+
     depends_on("r+X", type=("build", "run"))
     depends_on("r@3.0.2:", type=("build", "run"))
     depends_on("r@3.4.0:", type=("build", "run"), when="@2.18.1:")

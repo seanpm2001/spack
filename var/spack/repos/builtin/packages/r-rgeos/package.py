@@ -56,6 +56,9 @@ class RRgeos(RPackage):
         deprecated=True,
     )
 
+    depends_on("c", type="build")
+    depends_on("cxx", type="build")
+
     depends_on("r@3.3.0:", type=("build", "run"))
     depends_on("r-sp@1.1-0:", type=("build", "run"))
     depends_on("geos@3.2.0:3.8.0", when="@:0.5-1")

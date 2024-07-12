@@ -24,6 +24,10 @@ class Ermod(AutotoolsPackage):
     version("0.3.6", sha256="8fdd8e0844fcc34cda2bbbf8ad03168c1c2f1409e06967a96a0f2269bb5f1b6b")
     version("0.3.5", sha256="42043ba7f53e9b74d0327b9982f33a4b79ed6964fbeb409e33178a6dcdf9e827")
 
+    depends_on("c", type="build")
+    depends_on("cxx", type="build")
+    depends_on("fortran", type="build")
+
     depends_on("fftw")
     depends_on("blas")
 

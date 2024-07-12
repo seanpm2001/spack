@@ -42,6 +42,8 @@ class Bowtie(MakefilePackage):
         url="https://downloads.sourceforge.net/project/bowtie-bio/bowtie/1.2.0/bowtie-1.2-source.zip",
     )
 
+    depends_on("cxx", type="build")
+
     # 1.2.2 and 1.2.2_p1 fail to build with %gcc@8.3.0
     # with and without issue-87 patch
     conflicts("%gcc@8:", when="@1.2.2")

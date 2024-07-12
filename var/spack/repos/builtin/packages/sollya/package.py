@@ -19,6 +19,8 @@ class Sollya(AutotoolsPackage):
 
     version("7.0", sha256="15745871f7dd3e96e12915098dd6df2078b815853a38143b2bc6c01477044984")
 
+    depends_on("c", type="build")
+
     depends_on("gmp")
     depends_on("mpfi")
     depends_on("mpfr")

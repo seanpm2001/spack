@@ -22,6 +22,8 @@ class Ginac(CMakePackage):
     version("1.7.9", sha256="67cdff43a4360da997ee5323cce27cf313a5b17ba58f02e8f886138c0f629821")
     version("1.7.8", sha256="0c86501aa6c72efd5937fce42c5e983fc9f05dadb65b4ebdb51ee95c9f6a7067")
 
+    depends_on("cxx", type="build")
+
     variant("ginsh", default=True, description="Build ginsh, the GiNaC interactive shell")
 
     depends_on("cmake@2.8:", type="build")

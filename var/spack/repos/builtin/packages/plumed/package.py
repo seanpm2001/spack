@@ -113,6 +113,9 @@ class Plumed(AutotoolsPackage):
         deprecated=True,
     )
 
+    depends_on("cxx", type="build")
+    depends_on("fortran", type="build")
+
     # Variants. PLUMED by default builds a number of optional modules.
     # The ones listed here are not built by default for various reasons,
     # such as stability, lack of testing, or lack of demand.

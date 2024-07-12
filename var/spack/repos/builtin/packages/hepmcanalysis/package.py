@@ -15,6 +15,10 @@ class Hepmcanalysis(MakefilePackage):
 
     version("3.4.13", sha256="be9937c6de493a5671258919493b0caa0cecca77853a2075f5cecce1071e0029")
 
+    depends_on("c", type="build")
+    depends_on("cxx", type="build")
+    depends_on("fortran", type="build")
+
     tags = ["hep"]
 
     depends_on("hepmc")

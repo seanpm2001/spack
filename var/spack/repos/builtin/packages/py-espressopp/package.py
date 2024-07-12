@@ -23,6 +23,8 @@ class PyEspressopp(CMakePackage):
     version("master", branch="master")
     version("3.0.0", sha256="63518e768a98179ad5ef3be96eabaa4d38063b34962e2278db7d59ed2bb8a32e")
 
+    depends_on("cxx", type="build")
+
     variant("ug", default=False, description="Build user guide")
     variant("pdf", default=False, description="Build user guide in pdf format")
     variant("dg", default=False, description="Build developer guide")

@@ -18,6 +18,10 @@ class Activeharmony(MakefilePackage):
     version("4.6.0", sha256="9ce5009cfd8e2f4cf5f3536e1fea9993414fc25920fc90d0a2cb56f044787dbb")
     version("4.5", sha256="31d9990c8dd36724d336707d260aa4d976e11eaa899c4c7cc11f80a56cdac684")
 
+    depends_on("c", type="build")
+    depends_on("cxx", type="build")
+    depends_on("fortran", type="build")
+
     patch(
         "fix_logical_bug_in_slave_list_parsing.patch",
         sha256="3e000616f84de80b262efcae7559d65eed0efcd53e915580dab63b0ffbbb8bf2",

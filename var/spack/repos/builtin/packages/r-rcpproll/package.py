@@ -18,5 +18,7 @@ class RRcpproll(RPackage):
 
     version("0.3.0", sha256="cbff2096443a8a38a6f1dabf8c90b9e14a43d2196b412b5bfe5390393f743f6b")
 
+    depends_on("cxx", type="build")
+
     depends_on("r@2.15.1:", type=("build", "run"))
     depends_on("r-rcpp", type=("build", "run"))

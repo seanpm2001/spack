@@ -16,6 +16,8 @@ class PyAntspyx(PythonPackage):
 
     version("0.3.7", sha256="cd831eb966d4ce82cc0afb65edddd8e2db6b439d418316e6356199f966104c1b")
 
+    depends_on("cxx", type="build")
+
     depends_on("python@3.6:", type=("build", "run"))
     depends_on("py-setuptools", type="build")
 

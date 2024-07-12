@@ -28,6 +28,8 @@ class PremakeCore(MakefilePackage):
         "5.0.0-alpha13", sha256="bfe983e24686c50cada935f74adad2aefe6581649734b2ab8c1aaa2de4d473c6"
     )
 
+    depends_on("c", type="build")
+
     def build(self, spec, prefix):
         make("-f", "Bootstrap.mak", self.architecture.platform.name)
 

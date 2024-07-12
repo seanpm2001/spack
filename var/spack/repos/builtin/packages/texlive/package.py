@@ -82,6 +82,9 @@ class Texlive(AutotoolsPackage):
             when="@{0}".format(release["version"]),
         )
 
+    depends_on("c", type="build")
+    depends_on("cxx", type="build")
+
     # The following variant is only for the "live" binary installation.
     # There does not seem to be a complete list of schemes.
     # Examples include:

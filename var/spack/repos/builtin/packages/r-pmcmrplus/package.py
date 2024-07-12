@@ -40,6 +40,9 @@ class RPmcmrplus(RPackage):
     version("1.9.4", sha256="1ec36674bb6d2fac3a1b0889c4672e40849c7e3565ffb34bb73b61f973bba19a")
     version("1.9.3", sha256="76baba60f57343fa5bb6f6d2ea27aab77178e02b0d2f9d5d74abde7d18994f03")
 
+    depends_on("c", type="build")
+    depends_on("fortran", type="build")
+
     depends_on("r@3.5.0:", type=("build", "run"))
     depends_on("r-mvtnorm@1.0:", type=("build", "run"))
     depends_on("r-multcompview", type=("build", "run"))

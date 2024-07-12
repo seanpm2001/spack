@@ -21,6 +21,8 @@ class Fstrack(MakefilePackage):
         "0.5.3.092918", sha256="34b31687fdfa207b9659425238b805eaacf0b0209e7e3343c1a3cb4c9e62345d"
     )
 
+    depends_on("fortran", type="build")
+
     variant("flow", default=True, description="Build the flow tracker")
 
     depends_on("gmt@4.0:4", when="+flow")

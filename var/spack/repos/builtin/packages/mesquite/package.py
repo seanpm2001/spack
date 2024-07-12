@@ -24,6 +24,8 @@ class Mesquite(AutotoolsPackage):
     version("2.3.0", sha256="4ab4ceadfa596e16c00dbb0e8b830a9112fa1b73291ca07633ec379a39b8bb28")
     version("2.2.0", sha256="3d48322c3e148431ee1af155d6bb94dfeef15795da1f46996c112df27778a4a2")
 
+    depends_on("cxx", type="build")
+
     variant("mpi", default=True, description="Enable MPI parallel support")
 
     depends_on("mpi", when="+mpi")

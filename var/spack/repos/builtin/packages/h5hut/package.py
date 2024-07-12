@@ -19,6 +19,10 @@ class H5hut(AutotoolsPackage):
 
     version("master", branch="master")
 
+    depends_on("c", type="build")
+    depends_on("cxx", type="build")
+    depends_on("fortran", type="build")
+
     variant("fortran", default=True, description="Enable Fortran support")
     variant("mpi", default=True, description="Enable MPI support")
 

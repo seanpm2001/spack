@@ -18,6 +18,8 @@ class Cpmd(MakefilePackage):
 
     version("4.3", sha256="e0290f9da0d255f90a612e60662b14a97ca53003f89073c6af84fa7bc8739f65")
 
+    depends_on("fortran", type="build")
+
     variant("omp", description="Enables the use of OMP instructions", default=False)
     variant("mpi", description="Build with MPI support", default=False)
 

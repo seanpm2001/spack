@@ -20,6 +20,8 @@ class StressNg(MakefilePackage):
 
     version("0.12.06", sha256="75eb340266b1bbae944d8f9281af978bd5bc2c8085df97a098d5500d6f177296")
 
+    depends_on("c", type="build")
+
     depends_on("libaio")
     depends_on("libbsd")
     depends_on("judy")

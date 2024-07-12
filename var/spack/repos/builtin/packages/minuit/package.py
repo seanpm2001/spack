@@ -34,6 +34,8 @@ class Minuit(AutotoolsPackage):
     version("1.5.2", sha256="b0ed8d7d0071b1e8daa5a5dc4c05d522731617a5430a288b932edc331869c063")
     version("1.5.0", sha256="b5fffdc1d06a2b4ffd6dad5fdd30d127ea354a789aaa9f25f33cf7c539898b7f")
 
+    depends_on("cxx", type="build")
+
     def url_for_version(self, version):
         if version > Version("5.0.0"):
             url = "http://www.cern.ch/mathlibs/sw/{0}/Minuit2/Minuit2-{1}.tar.gz"

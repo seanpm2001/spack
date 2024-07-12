@@ -31,6 +31,9 @@ class Melissa(CMakePackage):
         deprecated=True,
     )
 
+    depends_on("c", type="build")
+    depends_on("fortran", type="build")
+
     variant("no_mpi_api", default=False, description="Enable the deprecated no-MPI API")
     variant("shared", default=True, description="Build shared libraries")
 

@@ -24,6 +24,8 @@ class RPkgbuild(RPackage):
     version("1.0.4", sha256="2934efa5ff9ccfe1636d360aedec36713f3bb3128a493241dbb728d842ea3b5f")
     version("1.0.3", sha256="c93aceb499886e42bcd61eb7fb59e47a76c9ba5ab5349a426736d46c8ce21f4d")
 
+    depends_on("c", type="build")
+
     depends_on("r@3.1:", type=("build", "run"))
     depends_on("r@3.4:", type=("build", "run"), when="@1.4.0:")
     depends_on("r-callr@2.0.0:", type=("build", "run"))

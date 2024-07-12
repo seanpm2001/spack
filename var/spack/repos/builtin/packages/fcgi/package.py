@@ -28,4 +28,7 @@ class Fcgi(AutotoolsPackage):
         url="https://github.com/FastCGI-Archives/FastCGI.com/raw/master/original_snapshot/fcgi-2.4.1-SNAP-0910052249.tar.gz",
     )
 
+    depends_on("c", type="build")
+    depends_on("cxx", type="build")
+
     parallel = False

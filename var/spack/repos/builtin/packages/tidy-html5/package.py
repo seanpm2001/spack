@@ -17,4 +17,7 @@ class TidyHtml5(CMakePackage):
     version("5.7.28", sha256="5caa2c769204f506e24ea4986a45abe23f71d14f0fe968314f20065f342ffdba")
     version("5.6.0", sha256="08a63bba3d9e7618d1570b4ecd6a7daa83c8e18a41c82455b6308bc11fe34958")
 
+    depends_on("c", type="build")
+    depends_on("cxx", type="build")
+
     depends_on("cmake@2.8.12:", type="build")

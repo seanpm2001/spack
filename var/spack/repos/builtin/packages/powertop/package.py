@@ -17,6 +17,9 @@ class Powertop(AutotoolsPackage):
 
     version("2.9", sha256="aa7fb7d8e9a00f05e7d8a7a2866d85929741e0d03a5bf40cab22d2021c959250")
 
+    depends_on("c", type="build")
+    depends_on("cxx", type="build")
+
     depends_on("libnl")
     depends_on("ncurses", type="link")
 

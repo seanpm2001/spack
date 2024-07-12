@@ -17,4 +17,7 @@ class Ncftp(AutotoolsPackage):
 
     version("3.2.6", sha256="129e5954850290da98af012559e6743de193de0012e972ff939df9b604f81c23")
 
+    depends_on("c", type="build")
+    depends_on("cxx", type="build")
+
     depends_on("ncurses")

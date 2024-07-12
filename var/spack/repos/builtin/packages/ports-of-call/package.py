@@ -34,6 +34,8 @@ class PortsOfCall(CMakePackage):
         deprecated=True,
     )
 
+    depends_on("cxx", type="build")
+
     variant(
         "portability_strategy",
         description="Portability strategy backend",

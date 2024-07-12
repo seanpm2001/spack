@@ -15,6 +15,8 @@ class Fastme(AutotoolsPackage):
 
     version("2.1.5.1", sha256="1059dcbd320bf4d6dd9328c582dd3d24283295026530fcfb26dbdbe068e3cd1d")
 
+    depends_on("c", type="build")
+
     depends_on("autoconf", type="build")
     depends_on("automake", type="build")
     depends_on("libtool", type="build")

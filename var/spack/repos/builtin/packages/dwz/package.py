@@ -22,6 +22,9 @@ class Dwz(MakefilePackage, SourcewarePackage):
         preferred=True,
     )
 
+    depends_on("c", type="build")
+    depends_on("cxx", type="build")
+
     def install(self, spec, prefix):
         mkdirp(prefix.bin)
         install("dwz", prefix.bin)

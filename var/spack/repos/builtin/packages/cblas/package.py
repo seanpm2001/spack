@@ -20,6 +20,9 @@ class Cblas(Package):
         url="https://www.netlib.org/blas/blast-forum/cblas.tgz",
     )
 
+    depends_on("c", type="build")
+    depends_on("fortran", type="build")
+
     depends_on("blas")
     parallel = False
 

@@ -43,6 +43,9 @@ class Parsec(CMakePackage, CudaPackage):
         url="https://bitbucket.org/icldistcomp/parsec/get/v1.1.0.tar.bz2",
     )
 
+    depends_on("c", type="build")
+    depends_on("fortran", type="build")
+
     variant(
         "build_type",
         default="RelWithDebInfo",

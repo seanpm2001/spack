@@ -27,6 +27,8 @@ class LuaLuajit(LuaImplPackage):
     )
     version("2.0.4", sha256="620fa4eb12375021bef6e4f237cbd2dd5d49e56beb414bee052c746beef1807d")
 
+    depends_on("c", type="build")
+
     conflicts("@:2.0.5", when="target=aarch64:")
 
     variant(

@@ -31,6 +31,10 @@ class Heffte(CMakePackage, CudaPackage, ROCmPackage):
         deprecated=True,
     )
 
+    depends_on("c", type="build")
+    depends_on("cxx", type="build")
+    depends_on("fortran", type="build")
+
     patch("cmake-magma-v230.patch", when="@2.3.0")
     patch("fortran200.patch", when="@2.0.0")
 

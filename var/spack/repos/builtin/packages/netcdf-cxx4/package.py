@@ -21,6 +21,9 @@ class NetcdfCxx4(CMakePackage):
     version("4.3.1", sha256="6a1189a181eed043b5859e15d5c080c30d0e107406fbb212c8fb9814e90f3445")
     version("4.3.0", sha256="e34fbc6aba243ec82c23e9ee99db2430555ada849c54c1f3ab081b0ddd0f5f30")
 
+    depends_on("c", type="build")
+    depends_on("cxx", type="build")
+
     variant("shared", default=True, description="Enable shared library")
     variant("pic", default=True, description="Produce position-independent code (for shared libs)")
     variant("doc", default=False, description="Enable doxygen docs")

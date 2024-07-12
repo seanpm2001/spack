@@ -26,6 +26,8 @@ class Gnuradio(CMakePackage):
 
     version("3.8.2.0", sha256="ddda12b55e3e1d925eefb24afb9d604bca7c9bbe0a431707aa48a2eed53eec2f")
 
+    depends_on("cxx", type="build")
+
     variant("gui", default=False, description="Build with gui support")
 
     depends_on("cmake@3.5.1:", type="build")

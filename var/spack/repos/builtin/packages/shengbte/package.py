@@ -18,6 +18,8 @@ class Shengbte(MakefilePackage):
         "1.1.1-8a63749", sha256="43920740d19ae854c8ecae0b648acfdf1d7726ca4c2b44f1a1684457f2f88522"
     )
 
+    depends_on("fortran", type="build")
+
     depends_on("mpi")
     depends_on("spglib")
     depends_on("mkl")

@@ -25,6 +25,8 @@ class Mpfi(AutotoolsPackage):
         sha256="2383d457b208c6cd3cf2e66b69c4ce47477b2a0db31fbec0cd4b1ebaa247192f",
     )
 
+    depends_on("c", type="build")
+
     depends_on("autoconf", type="build")
     depends_on("automake", type="build")
     depends_on("libtool", type="build")

@@ -25,6 +25,8 @@ class Elk(MakefilePackage):
         deprecated=True,
     )
 
+    depends_on("fortran", type="build")
+
     # what linear algebra packages to use? the choices are
     # internal - use internal libraries
     # generic  - use spack-provided blas and lapack

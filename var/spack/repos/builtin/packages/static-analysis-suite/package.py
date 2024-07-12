@@ -29,6 +29,8 @@ class StaticAnalysisSuite(CMakePackage):
         deprecated=True,
     )
 
+    depends_on("cxx", type="build")
+
     depends_on("python@2.7:")
     depends_on("llvm@3.5:")
     depends_on("cmake@2.8:", type="build")

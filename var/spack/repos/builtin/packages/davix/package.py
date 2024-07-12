@@ -24,6 +24,8 @@ class Davix(CMakePackage):
     version("0.6.9", sha256="fbd97eb5fdf82ca48770d06bf8e2805b35f23255478aa381a9d25a49eb98e348")
     version("0.6.8", sha256="e1820f4cc3fc44858ae97197a3922cce2a1130ff553b080ba19e06eb8383ddf7")
 
+    depends_on("c", type="build")
+
     variant(
         "cxxstd",
         default="11",

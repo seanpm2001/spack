@@ -27,6 +27,9 @@ class Opennurbs(CMakePackage, MakefilePackage):
         url="https://github.com/PerceptTools/percept/raw/master/build-cmake/opennurbs-percept.tar.gz",
     )
 
+    depends_on("c", type="build")
+    depends_on("cxx", type="build")
+
     build_system(
         conditional("cmake", when="@1:"), conditional("makefile", when="@:0"), default="cmake"
     )

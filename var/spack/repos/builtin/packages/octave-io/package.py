@@ -21,4 +21,6 @@ class OctaveIo(OctavePackage, SourceforgePackage):
     version("2.6.0", sha256="27f26273ced0b42c098e900136bb0ab2e542baf98d02bc0176cf47edbd0e6d7f")
     version("2.2.7", sha256="4eed2ee4c89b49ab160546c77ed66a384598f3bbb1c6e3833529c2c55aa479b6")
 
+    depends_on("cxx", type="build")
+
     extends("octave@4.2.0:")

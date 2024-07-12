@@ -17,6 +17,8 @@ class Zpares(MakefilePackage):
 
     version("0.9.6a", sha256="3c34257d249451b0b984abc985e296ebb73ae5331025f1b8ea08d50301c7cf9a")
 
+    depends_on("fortran", type="build")
+
     variant("mpi", default=False, description="Activates MPI support")
     variant("mumps", default=False, description="Activates MUMPS support")
 

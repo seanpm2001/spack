@@ -24,6 +24,8 @@ class Antimony(CMakePackage):
     version("2.2", sha256="795c777dd90c28fd8c3f4f8896702744b7389cff2fcf40e797b4bfafbb6f7251")
     version("2.0", sha256="778146206e5f420d0e3d30dc25eabc9bad2759bfaf6b4b355bb1f72c5bc9593f")
 
+    depends_on("cxx", type="build")
+
     def url_for_version(self, version):
         url = "https://downloads.sourceforge.net/project/antimony/Antimony source/{0}/antimony_src_v{1}.tar.gz".format(
             version, version

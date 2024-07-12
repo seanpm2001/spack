@@ -17,6 +17,9 @@ class PyIgraph(PythonPackage):
 
     version("0.10.6", sha256="76f7aad294514412f835366a7d9a9c1e7a34c3e6ef0a6c3a1a835234323228e8")
 
+    depends_on("c", type="build")
+    depends_on("cxx", type="build")
+
     variant("matplotlib", default=False, description="Enable plotting with Matplotlib")
 
     depends_on("cmake", type="build")

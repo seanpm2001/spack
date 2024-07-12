@@ -25,6 +25,8 @@ class MpasModel(MakefilePackage):
     version("6.3", sha256="e7f1d9ebfeb6ada37d42a286aaedb2e69335cbc857049dc5c5544bb51e7a8db8")
     version("6.2", sha256="2a81825a62a468bf5c56ef9d9677aa2eb88acf78d4f996cb49a7db98b94a6b16")
 
+    depends_on("fortran", type="build")
+
     # These targets are defined in the Makefile. Some can be auto-detected by the
     # compiler name, others need to be explicitly set.
     make_target = [

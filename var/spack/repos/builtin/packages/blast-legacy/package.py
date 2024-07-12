@@ -21,6 +21,8 @@ class BlastLegacy(Package):
         deprecated=True,
     )
 
+    depends_on("c", type="build")
+
     depends_on("tcsh", type="build")
 
     def install(self, spec, prefix):

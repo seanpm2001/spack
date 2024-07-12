@@ -16,6 +16,8 @@ class Phylip(Package):
 
     version("3.697", sha256="9a26d8b08b8afea7f708509ef41df484003101eaf4beceb5cf7851eb940510c1")
 
+    depends_on("c", type="build")
+
     def patch(self):
         with working_dir("src"):
             for f in ["Makefile.unx", "Makefile.osx"]:

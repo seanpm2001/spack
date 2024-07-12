@@ -21,6 +21,8 @@ class Tcptrace(AutotoolsPackage):
 
     version("6.6.7", sha256="63380a4051933ca08979476a9dfc6f959308bc9f60d45255202e388eb56910bd")
 
+    depends_on("c", type="build")
+
     depends_on("bison", type="build")
     depends_on("flex", type="build")
     depends_on("libpcap")

@@ -17,6 +17,8 @@ class Mosesdecoder(Package):
 
     version("4.0", sha256="357376cdbb225a17cdf17195625d0fa7e10d722807e9e0b8a633ffbd7eec9b8f")
 
+    depends_on("cxx", type="build")
+
     depends_on("git")
     depends_on("subversion")
     depends_on("cmake")

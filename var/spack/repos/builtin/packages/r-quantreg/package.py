@@ -34,6 +34,9 @@ class RQuantreg(RPackage):
     version("5.29", sha256="bb4638e8f295579afa5c40c4de7266a6ea9221436ba4ca802f94cdb43bf20f25")
     version("5.26", sha256="9d7403f7c5ee219ec155838648401a1c4915a46a74f5774a0f6876c537ef2c87")
 
+    depends_on("c", type="build")
+    depends_on("fortran", type="build")
+
     depends_on("r@2.6:", type=("build", "run"))
     depends_on("r@3.5:", type=("build", "run"), when="@5.93:")
     depends_on("r-sparsem", type=("build", "run"))

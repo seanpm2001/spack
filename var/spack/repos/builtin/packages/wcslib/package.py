@@ -18,6 +18,9 @@ class Wcslib(AutotoolsPackage):
     version("7.3", sha256="4b01cf425382a26ca4f955ed6841a5f50c55952a2994367f8e067e4183992961")
     version("6.4", sha256="13c11ff70a7725563ec5fa52707a9965fce186a1766db193d08c9766ea107000")
 
+    depends_on("c", type="build")
+    depends_on("fortran", type="build")
+
     variant("cfitsio", default=False, description="Include CFITSIO support")
     variant("x", default=False, description="Use the X Window System")
 

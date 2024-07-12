@@ -15,6 +15,9 @@ class Rodinia(MakefilePackage, CudaPackage):
 
     version("3.1", sha256="faebac7c11ed8f8fcf6bf2d7e85c3086fc2d11f72204d6dfc28dc5b2e8f2acfd")
 
+    depends_on("c", type="build")
+    depends_on("cxx", type="build")
+
     depends_on("cuda")
     depends_on("freeglut")
     depends_on("glew")

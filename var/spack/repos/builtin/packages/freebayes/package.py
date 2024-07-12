@@ -25,6 +25,8 @@ class Freebayes(MesonPackage):
         deprecated=True,
     )
 
+    depends_on("cxx", type="build")
+
     depends_on("cmake", type="build")
     depends_on("zlib-api")
 

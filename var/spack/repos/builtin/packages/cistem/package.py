@@ -21,6 +21,8 @@ class Cistem(AutotoolsPackage):
         "1.0.0-beta", sha256="c62068f53d0a269ffa1bfff34641597d3795989a930686437fba9eed7a991af6"
     )
 
+    depends_on("cxx", type="build")
+
     depends_on("wxwidgets@3.0.2")
     depends_on("fftw")
     depends_on("libtiff")

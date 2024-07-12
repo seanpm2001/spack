@@ -20,6 +20,8 @@ class Memtester(MakefilePackage):
     version("4.2.0", sha256="cb9d5437a0c429d18500bddef93084bb2fead0d5ccfedfd00ee28ff118e52695")
     version("4.1.3", sha256="ac56f0b6d6d6e58bcf2a3fa7f2c9b29894f5177871f21115a1906c535106acf6")
 
+    depends_on("c", type="build")
+
     def edit(self, spec, prefix):
         makefile = FileFilter("Makefile")
         makefile.filter("INSTALLPATH\t= /usr/local", "INSTALLPATH\t= {0}".format(self.prefix))

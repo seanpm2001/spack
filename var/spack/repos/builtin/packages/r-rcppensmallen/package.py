@@ -15,6 +15,8 @@ class RRcppensmallen(RPackage):
         "0.2.19.0.1", sha256="b4a9bde4dde309a52a47b56790389ecab14fe64066098d2a38b1b588ba3d8631"
     )
 
+    depends_on("cxx", type="build")
+
     depends_on("r@3.3.0:", type=("build", "run"))
     depends_on("r-rcpp", type=("build", "run"))
     depends_on("r-rcpparmadillo@0.9.800.0.0:", type=("build", "run"))

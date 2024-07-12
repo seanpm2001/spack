@@ -24,6 +24,10 @@ class Tealeaf(MakefilePackage):
 
     version("1.0", sha256="e11799d1a3fbe76041333ba98858043b225c5d65221df8c600479bc55e7197ce")
 
+    depends_on("c", type="build")
+    depends_on("cxx", type="build")
+    depends_on("fortran", type="build")
+
     depends_on("mpi")
 
     def edit(self, spec, prefix):

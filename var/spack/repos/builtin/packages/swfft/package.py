@@ -18,6 +18,10 @@ class Swfft(MakefilePackage):
     version("1.0", sha256="d0eba8446a89285e4e43cba787fec6562a360079a99d56f3af5001cc7e66d5dc")
     version("develop", branch="master")
 
+    depends_on("c", type="build")
+    depends_on("cxx", type="build")
+    depends_on("fortran", type="build")
+
     depends_on("mpi")
     depends_on("fftw")
 
